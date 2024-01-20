@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-vocal E-Commerce</title>
+</head>
+<body>
+    <h1>Welcome to v-vocal E-Commerce</h1>
+    
+    <h2>Product Listing</h2>
+    <ul id="product-list">
+        <!-- Product items will be dynamically added here -->
+    </ul>
+
+    <script>
+        // Fetch products from the server and update the product list
+        async function fetchProducts() {
+            const response = await fetch('/api/products');
+            const products = await response.json();
+            const productList = document.getElementById('product-list');
+
+            products.forEach(product => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = `/product/${product.id}`;
+                link.textContent = product.name;
+
+                listItem.appendChild(link);
+                productList.appendChild(listItem);
+            });
+        }
+
+        // Load products when the page is ready
+        document.addEventListener('DOMContentLoaded', fetchProducts);
+    </script>
+</body>
+</html>
